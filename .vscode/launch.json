@@ -1,0 +1,26 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Launch server",
+            "request": "launch",
+            "runtimeArgs": [
+                "src/server.ts",
+            ],
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "Launch tests",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+    ]
+}
