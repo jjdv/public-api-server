@@ -27,5 +27,6 @@ module.exports = {
     ],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-param-reassign': ['error', { props: false }],
+    'default-case': 'off',
   },
 };
