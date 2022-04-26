@@ -96,6 +96,15 @@ describe('/apis', () => {
     expect(response.body).toEqual(appApis.slice(2, 3));
   });
 
+  it('returns empty array if there is no data to display', async () => {
+    mockedHttp.get.mockResolvedValue(mockedResponse);
+    const response = await request.get(
+      '/apis?title=jlkfjdsiouw&cors=undefined',
+    );
+
+    expect(response.body).toEqual([]);
+  });
+
   it('uses cashed data for subsequent requests', async () => {
     mockedHttp.get.mockReset();
     apisCache.clear();
