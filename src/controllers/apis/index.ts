@@ -69,18 +69,20 @@ function getCorsSearched(cors: string): boolean | undefined {
 
 function makeApiFilter({ title, cors }: ApiQuery): ApiFilter {
   const queryType = `${title ? 'title' : ''}-${cors ? 'cors' : ''}`;
+  const titleLow = title?.toLowerCase();
+
   switch (queryType) {
     case 'title-cors': {
       const corsSearched = getCorsSearched(cors as string);
       return (api: ApiExtended) =>
-        api.cors === corsSearched && api.titleLow.includes(title as string);
+        api.cors === corsSearched && api.titleLow.includes(titleLow as string);
     }
     case '-cors': {
       const corsSearched = getCorsSearched(cors as string);
       return (api: ApiExtended) => api.cors === corsSearched;
     }
     default:
-      return (api: ApiExtended) => api.titleLow.includes(title as string);
+      return (api: ApiExtended) => api.titleLow.includes(titleLow as string);
   }
 }
 
