@@ -10,6 +10,7 @@ const getSanitizedImplementedMethods = (
     !implementedMethods.includes('HEAD')
   )
     sanitizedImplementationMethods.push('HEAD');
+
   if (!implementedMethods.includes('OPTIONS'))
     sanitizedImplementationMethods.push('OPTIONS');
 

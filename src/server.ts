@@ -1,9 +1,21 @@
 /* istanbul ignore file */
+import makeLogger from './lib/makeLogger';
 import app from './app';
 
-const port = 3000;
+const serverLogger = makeLogger('Server');
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Express is listening at http://localhost:${port}`);
+const port = process.env.PORT || 3000;
+
+const server = app.listen(port, () => {
+  serverLogger.info(`Apo server is listening at http://localhost:${port}`);
 });
+
+function shutDown(signal: string) {
+  serverLogger.info(`Signal "${signal}" received. Closing Server ...`);
+  server.close(() => {
+    serverLogger.info('Server closed.');
+  });
+}
+
+process.on('SIGTERM', () => shutDown('SIGTERM'));
+process.on('SIGINT', () => shutDown('SIGINT'));

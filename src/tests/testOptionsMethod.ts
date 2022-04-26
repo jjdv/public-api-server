@@ -1,7 +1,7 @@
 import areArrayValuesEqual from '../lib/areArrayValuesEqual';
 import request from './request';
 import { HttpRequestMethod } from '../data/httpRequestMethods';
-import getSanitizedImplementedMethods from './getSanitizedImplementedMethods';
+import getSanitizedImplementedMethods from '../lib/getSanitizedImplementedMethods';
 
 const testOptionsMethod = (
   endpoint: string,
@@ -14,9 +14,9 @@ const testOptionsMethod = (
 
   it(`OPTIONS returns allowed origin ${allowedOrigin} and allowed methods ${allowedMethodsStr}`, async () => {
     const response = await request.options(endpoint);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
 
-    const headerAllow = response.headers.allow;
+    const headerAllow = response.headers['access-control-allow-methods'];
     const responseAllowedMethods: string[] = headerAllow
       ? (headerAllow as string).split(/,\s*/)
       : [];

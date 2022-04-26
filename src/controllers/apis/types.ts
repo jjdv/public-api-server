@@ -1,5 +1,3 @@
-import { HttpRequestMethod } from '../data/httpRequestMethods';
-
 export interface ApiOriginal {
   API: string;
   Description: string;
@@ -20,10 +18,18 @@ export interface Api {
   cors?: boolean;
 }
 
-export const implementedMethods: HttpRequestMethod[] = ['GET'];
+export interface ApiOriginalResponse {
+  count: number;
+  entries: ApiOriginal[] | null;
+}
 
-export const allowedOrigin = '*';
+export interface ApiQuery {
+  title?: string;
+  cors?: string;
+}
 
-export const apisCache = {
-  clear: () => {},
-};
+export interface ApiExtended extends Api {
+  titleLow: string;
+}
+
+export type ApiFilter = (api: ApiExtended) => boolean;

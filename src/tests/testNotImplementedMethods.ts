@@ -3,7 +3,7 @@ import httpRequestMethods, {
 } from '../data/httpRequestMethods';
 import areArrayValuesEqual from '../lib/areArrayValuesEqual';
 import request from './request';
-import getSanitizedImplementedMethods from './getSanitizedImplementedMethods';
+import getSanitizedImplementedMethods from '../lib/getSanitizedImplementedMethods';
 
 const requestMethods = {
   GET: request.get,
@@ -31,8 +31,7 @@ const testNotImplementedMethods = (
 
       expect(response.status).toBe(405);
 
-      const headerAccessControlAllowMethods =
-        response.headers['access-control-allow-methods'];
+      const headerAccessControlAllowMethods = response.headers.allow;
       const responseAllowedMethods: string[] = headerAccessControlAllowMethods
         ? (headerAccessControlAllowMethods as string).split(/,\s*/)
         : [];

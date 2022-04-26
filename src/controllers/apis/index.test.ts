@@ -1,15 +1,11 @@
-import http from '../services/http';
-import request from '../tests/request';
-import testOptionsMethod from '../tests/testOptionsMethod';
-import testNotImplementedMethods from '../tests/testNotImplementedMethods';
-import {
-  implementedMethods,
-  allowedOrigin,
-  ApiOriginal,
-  apisCache,
-} from './apis';
+import http from '../../services/http';
+import request from '../../tests/request';
+import testOptionsMethod from '../../tests/testOptionsMethod';
+import testNotImplementedMethods from '../../tests/testNotImplementedMethods';
+import { ApiOriginal } from './types';
+import { implementedMethods, allowedOrigin, apisCache } from '.';
 
-jest.mock('../services/http');
+jest.mock('../../services/http');
 const mockedHttp = http as jest.Mocked<typeof http>;
 
 const apiCorsYes: ApiOriginal = {
@@ -71,16 +67,6 @@ const appApis = mockedApis.map(api => ({
 }));
 
 describe('/apis', () => {
-  it('uses cashed data for subsequent requests', async () => {
-    mockedHttp.get.mockReset();
-    apisCache.clear();
-    mockedHttp.get.mockResolvedValue(mockedResponse);
-    await request.get('/apis');
-    await request.get('/apis?title=ca&cors=undefined');
-
-    expect(mockedHttp.get).toHaveBeenCalledTimes(1);
-  });
-
   it('GET returns Response with Apis and status code 200', async () => {
     mockedHttp.get.mockResolvedValue(mockedResponse);
     const response = await request.get('/apis');

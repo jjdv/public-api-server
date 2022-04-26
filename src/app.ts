@@ -1,9 +1,10 @@
 import express from 'express';
 
+import generateEndpoints from './lib/generateEndpoints';
+import controllers from './controllers';
+
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+generateEndpoints(app, controllers);
 
 export default app;
